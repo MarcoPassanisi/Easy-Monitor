@@ -1,0 +1,5 @@
+cron:
+
+- description: cron job
+  url: /cron
+  schedule: every 5 minutes
