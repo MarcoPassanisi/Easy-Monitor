@@ -1,0 +1,17 @@
+{% extends "views/base.html" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+  <form class="well" action="/send" method="post">
+    <label>Name</label>
+      <div><textarea name="name" rows="1"></textarea></div>
+    <label>Mail</label>
+      <div><textarea name="mail" rows="1" cols="25"></textarea></div>
+    <label>Message</label>
+      <div><textarea name="message" rows="25" cols="25"></textarea></div>
+    <div><input type="submit" value="Submit" class="btn btn-primary"></div>
+  </form>
+
+{% endblock %}

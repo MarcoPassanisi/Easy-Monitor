@@ -8,6 +8,15 @@ import webapp2
 import config
 import controllers
 from models import *
+import jinja2
+import os
+
+#-------------------------------------------------
+# TEMPLATE
+#-------------------------------------------------
+
+jinja_environment = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 #-------------------------------------------------
 # MAIN PROGRAM
@@ -15,8 +24,27 @@ from models import *
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        self.response.out.write('Easy Monitor, status website: ' +  controllers.urlCheck() + " - " + "Last Status: ")
-        self.response.out.write(controllers.lastStatus())
+        template_values = {
+            'url_check': controllers.urlCheck(),
+            'last_status': controllers.lastStatus()
+        }
+
+        template = jinja_environment.get_template('views/index.html')
+        self.response.out.write(template.render(template_values))
+
+#-------------------------------------------------
+# About Page
+#-------------------------------------------------
+
+class About(webapp2.RequestHandler):
+    def get(self):
+	title =  "About"
+        template_values = {
+            'title': title
+        }
+
+        template = jinja_environment.get_template('views/about.html')
+        self.response.out.write(template.render(template_values))
 
 #-------------------------------------------------
 # CRON
@@ -37,12 +65,14 @@ class Cron(webapp2.RequestHandler):
 
         return webapp2.redirect('/')
 
+          
 #-------------------------------------------------
 # ROUTING
 #-------------------------------------------------
 
 app = webapp2.WSGIApplication([
                                 ('/', MainPage),
-                                ('/cron', Cron)
+                                ('/cron', Cron),
+                                ('/about', About)
                                ],
                               debug=True)

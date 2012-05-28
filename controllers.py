@@ -9,19 +9,25 @@ from google.appengine.api import mail
 
 def urlCheck():
     """This function provide the website status in real time"""
-    url_result = urlfetch.fetch(
-                                config.URL,
-                                payload=None,
-                                allow_truncated=False,
-                                follow_redirects=True,
-                                deadline=10,
-                                headers={'Cache-Control' : 'max-age=0'},
-                                validate_certificate=None
-                                )
-    if url_result.status_code == 200 and url_result.content.find(config.SEARCH_STRING) != -1:
-        site_status = ("UP")
-    else:
+    try:
+        url_result = urlfetch.fetch(
+                                    config.URL,
+                                    payload=None,
+                                    allow_truncated=False,
+                                    follow_redirects=True,
+                                    deadline=10,
+                                    headers={'Cache-Control' : 'max-age=0'},
+                                    validate_certificate=None
+                                    )
+        if url_result.status_code == 200 and url_result.content.find(config.SEARCH_STRING) != -1:
+            site_status = ("UP")
+        else:
+            site_status = ("DOWN")
+
+    
+    except:
         site_status = ("DOWN")
+        
     return site_status
 
 #-------------------------------------------------

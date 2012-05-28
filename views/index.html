@@ -1,0 +1,23 @@
+{% extends "views/base.html" %}
+
+{% block title %}WebApp Monitoring{% endblock %}
+
+{% block content %}
+<div class="hero-unit">
+<h1>Easy Monitor</h1>
+<h3>Easy Monitor for Google App Engine is a very basic systems of monitoring for your webapp.</h3>
+<p><a class="btn btn-primary btn-large"href="/about">Learn more &raquo;</a></p>
+</div>
+<table class="table table-bordered">
+<tr>
+<td><h3>Status</h3></td>
+<td><h3>Last recorded event</h3></td>
+</tr>
+<tr>
+<td>{{ url_check }}</td>
+<td>{{ last_status }}</td>
+</tr>
+</table>
+{{ site_error }}
+
+{% endblock %}
